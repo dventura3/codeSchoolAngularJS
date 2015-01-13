@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="store">
+<head>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+</head>
+<body>
+	
+	<p>{{"Hello " + "World"}}</p>
+
+	<br>
+	<H1>-------- Show/Hide controller ---------</H1>
+	<br>
+	<div ng-controller="StoreController as store" ng-hide="store.product.soldOut">  <!-- if true, the product desappeards -->
+		<H1>{{store.product.name}}</H1>
+		<H2>The price is: ${{store.product.price}}</H2>
+		<p>{{store.product.description}}</p>
+		<button ng-show="store.product.canPurchase"> Add to Cart </button>  <!-- if false, the button desappeards -->
+	</div>
+
+	<br>
+	<H1>-------- Multiple Products [ARRAY VERSION] ---------</H1>
+	<br>
+	<div ng-controller="MultipleStoreArrayController as array">
+		<div ng-hide="array.products[0].soldOut">
+			<H1>{{array.products[0].name}}</H1>
+			<H2>The price is: ${{array.products[0].price}}</H2>
+			<p>{{array.products[0].description}}</p>
+			<button ng-show="array.products[0].canPurchase"> Add to Cart </button>
+		</div>
+		<div ng-hide="array.products[1].soldOut">
+			<H1>{{array.products[1].name}}</H1>
+			<H2>The price is: ${{array.products[1].price}}</H2>
+			<p>{{array.products[1].description}}</p>
+			<button ng-show="array.products[1].canPurchase"> Add to Cart </button>
+		</div>
+	</div>
+
+	<br>
+	<H1>-------- Multiple Products [ng-repeat VERSION] ---------</H1>
+	<br>
+	<div ng-controller="MultipleStoreController as multiple">
+		<div ng-repeat="product in multiple.products" ng-hide="product.soldOut">
+			<H1>{{product.name}}</H1>
+			<H2>The price is: ${{product.price}}</H2>
+			<p>{{product.description}}</p>
+			<button ng-show="product.canPurchase"> Add to Cart </button>
+		</div>
+	</div>
+</body>
+</html>

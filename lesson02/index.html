@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="store">
+<head>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+</head>
+<body>
+	<div ng-controller="MultipleStoreController as multiple">
+		<div ng-repeat="product in multiple.products">
+			<H1>{{product.name}}</H1>
+			<img ng-src="{{product.images[0].thumb}}" />
+			<H2>The price is: {{product.price | currency}}</H2>
+		</div>
+	</div>
+
+	<br>
+	<H1>------------- TAB SENZA CONTROLLER -------------</H1>
+	<br>
+	<section ng-init="tab = 1">
+		<ul class="nav nav-pills">
+			<li ng-class="{active:tab===1}"> <a href ng-click="tab = 1">Description</a> </li>
+			<li ng-class="{active:tab===2}"> <a href ng-click="tab = 2">Specifications</a> </li>
+			<li ng-class="{active:tab===3}"> <a href ng-click="tab = 3">Reviews</a> </li>
+		</ul>
+		<div class="panel" ng-show="tab === 1"> <!--- se clicco su description, tab === 1, e questo è mostrato! Altrimenti è Nascosto dalla direttiva ng-show -->
+			<h4>Qui ci sta a descrizione dell'item selezionato</h4>
+		</div>
+		<div class="panel" ng-show="tab === 2">
+			<h4>Qui ci stannp la specifications</h4>
+		</div>
+		<div class="panel" ng-show="tab === 3">
+			<h4>Qui ci stanno i reviews</h4>
+		</div>
+	</section>
+
+	<br>
+	<H1>------------- TAB CON CONTROLLER -------------</H1>
+	<br>
+	<div ng-controller="storeController as store">
+		<div ng-repeat="product in store.products">
+			<H1>{{product.name}}</H1>
+			<img ng-src="{{product.images[0].thumb}}" />
+			<H2>The price is: {{product.price | currency}}</H2>
+			<!-- NEW DIRECTIVE because I have to apply a differenct contron on the tabs -->
+			<section ng-controller="PanelController as panel">
+				<ul class="nav nav-pills">
+					<li ng-class="{active:panel.isSelected(1)}"> <a href ng-click="panel.selectTab(1)">Description</a> </li>
+					<li ng-class="{active:panel.isSelected(2)}"> <a href ng-click="panel.selectTab(2)">Specifications</a> </li>
+					<li ng-class="{active:panel.isSelected(3)}"> <a href ng-click="panel.selectTab(3)">Reviews</a> </li>
+				</ul>
+				<div class="panel" ng-show="panel.isSelected(1)">
+					<h4>{{product.description}}</h4>
+				</div>
+				<div class="panel" ng-show="panel.isSelected(2)">
+					<h4>Not yet</h4>
+				</div>
+				<div class="panel" ng-show="panel.isSelected(3)">
+					<h4>Not yet</h4>
+				</div>
+			</section>
+		</div>
+	</div>
+</body>
+</html>
